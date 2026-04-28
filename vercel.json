@@ -1,17 +1,27 @@
 {
   "version": 2,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/",
-      "destination": "/web/responsive-rebuild/index.html"
+      "src": "api/[...route].js",
+      "use": "@vercel/node"
     },
     {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
+      "src": "web/responsive-rebuild/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "^/api/(.*)$",
+      "dest": "/api/[...route].js"
     },
     {
-      "source": "/(.*)",
-      "destination": "/web/responsive-rebuild/$1"
+      "src": "^/$",
+      "dest": "/web/responsive-rebuild/index.html"
+    },
+    {
+      "src": "^/(.*)$",
+      "dest": "/web/responsive-rebuild/$1"
     }
   ]
 }
